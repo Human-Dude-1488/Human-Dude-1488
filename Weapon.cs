@@ -8,7 +8,7 @@ public class Weapon : MonoBehaviour
     public float range;
     public float fireRate;
 
-    public float reloadingTime;
+    public float reloadTime;
 
     public float maxAmmo;
     public float currentAmmo;
@@ -20,20 +20,20 @@ public class Weapon : MonoBehaviour
 
     private float nextFire;
 
-    void Start()
+    private void Start()
     {
         currentAmmo = maxAmmo;
     }
 
-    void Update()
+    private void Update()
     {
-        if (Input.GetButton("Fire1") && isReloading == false && Time.time >= nextFire)
+        if (Input.GetKey(KeyCode.Mouse0) && Time.time >= nextFire && isReloading == false)
         {
             nextFire = Time.time + 1f / fireRate;
             Shoot();
         }
 
-        if (Input.GetKeyDown(KeyCode.R) || currentAmmo == 0 && currentAmmo < maxAmmo)
+        if (Input.GetKeyDown(KeyCode.R) || currentAmmo == 0)
         {
             StartCoroutine(Reloading());
         }
@@ -57,9 +57,9 @@ public class Weapon : MonoBehaviour
     {
         isReloading = true;
 
-        yield return new WaitForSeconds(reloadingTime);
+        yield return new WaitForSeconds(reloadTime);
 
-        currentAmmo = maxAmmo;
         isReloading = false;
+        currentAmmo = maxAmmo;
     }
 }
