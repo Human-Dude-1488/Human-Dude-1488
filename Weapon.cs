@@ -11,7 +11,7 @@ public class Weapon : MonoBehaviour
     public float reloadTime;
 
     public float maxAmmo;
-    public float currentAmmo;
+    private float currentAmmo;
 
     public Camera cam;
     public TextMeshProUGUI textMeshProUGUI;
@@ -33,7 +33,7 @@ public class Weapon : MonoBehaviour
             Shoot();
         }
 
-        if (Input.GetKeyDown(KeyCode.R) || currentAmmo == 0)
+        if (Input.GetKeyDown(KeyCode.R) || currentAmmo == 0f)
         {
             StartCoroutine(Reloading());
         }
